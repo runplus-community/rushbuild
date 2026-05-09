@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "rushbuild"
+name = "demo-app"
 version = "0.1.0"

@@ -1,2 +1,10 @@
-/target
-
+# rushbuild generated artifacts
+.con/
+.cargo/
+conversions/
+vendor/
+target/
+*.run.sh
+*.run.sh.test.sh
+*.run.corrupt.sh
+*.tar.gz

@@ -1,0 +1,64 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  unix:
+    name: Unix / macOS
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust toolchain
+        run: |
+          rustc --version
+          cargo --version
+        shell: bash
+
+      - name: Validate shell scripts
+        run: |
+          bash -n rushbuild.sh
+          bash -n test_rushbuild.sh
+        shell: bash
+
+      - name: Run demo harness
+        run: bash ./test_rushbuild.sh
+        shell: bash
+
+  windows:
+    name: Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Rust toolchain
+        shell: pwsh
+        run: |
+          rustc --version
+          cargo --version
+
+      - name: Validate PowerShell wrapper
+        shell: pwsh
+        run: |
+          [void][scriptblock]::Create((Get-Content -Raw -LiteralPath '.\rushbuild.ps1'))
+
+      - name: Validate shell scripts
+        shell: bash
+        run: |
+          bash -n rushbuild.sh
+          bash -n test_rushbuild.sh
+
+      - name: Run demo harness
+        shell: bash
+        run: bash ./test_rushbuild.sh
