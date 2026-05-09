@@ -9,6 +9,7 @@
 # - You are inside the rushbuild repo root.
 # - demo-apps/rust-demo/ contains the Rust crate to pack.
 # - rushbuild.sh is available at the repo root, or on PATH as rushbuild.sh.
+#   The root file does not need executable mode; this harness calls it with bash.
 #
 # Usage:
 #   bash ./test_rushbuild.sh
@@ -39,17 +40,26 @@ mkdir -p "${OUT_DIR}"
 # Locate rushbuild.sh from the parent folder first.
 # ------------------------------------------------------------
 RUSHBUILD="${RUSHBUILD:-}"
-if [[ -z "${RUSHBUILD}" ]]; then
-  if [[ -x "${REPO_ROOT}/rushbuild.sh" ]]; then
-    RUSHBUILD="${REPO_ROOT}/rushbuild.sh"
-  elif command -v rushbuild.sh >/dev/null 2>&1; then
-    RUSHBUILD="rushbuild.sh"
+RUSHBUILD_CMD=()
+if [[ -n "${RUSHBUILD}" ]]; then
+  if [[ -f "${RUSHBUILD}" ]]; then
+    RUSHBUILD_CMD=(bash "${RUSHBUILD}")
+  elif command -v "${RUSHBUILD}" >/dev/null 2>&1; then
+    RUSHBUILD_CMD=("${RUSHBUILD}")
   else
-    die "could not find rushbuild.sh. Put it in the repo root, or set RUSHBUILD=/path/to/rushbuild.sh"
+    die "could not find RUSHBUILD=${RUSHBUILD}"
   fi
+elif [[ -f "${REPO_ROOT}/rushbuild.sh" ]]; then
+  RUSHBUILD="${REPO_ROOT}/rushbuild.sh"
+  RUSHBUILD_CMD=(bash "${RUSHBUILD}")
+elif command -v rushbuild.sh >/dev/null 2>&1; then
+  RUSHBUILD="rushbuild.sh"
+  RUSHBUILD_CMD=("${RUSHBUILD}")
+else
+  die "could not find rushbuild.sh. Put it in the repo root, or set RUSHBUILD=/path/to/rushbuild.sh"
 fi
 
-say "using rushbuild: ${RUSHBUILD}"
+say "using rushbuild: ${RUSHBUILD_CMD[*]}"
 say "demo app root   : ${DEMO_DIR}"
 say "output review dir: ${OUT_DIR}"
 
@@ -81,8 +91,8 @@ say "expected runner : ${RUNNER}"
 # ------------------------------------------------------------
 say ""
 say "STEP 1/7: Pack (generate runner + tester)"
-say "Command: ${RUSHBUILD} pack ${DEMO_DIR} ${RUNNER}"
-"${RUSHBUILD}" pack "${DEMO_DIR}" "${RUNNER}" || die "rushbuild failed"
+say "Command: ${RUSHBUILD_CMD[*]} pack ${DEMO_DIR} ${RUNNER}"
+"${RUSHBUILD_CMD[@]}" pack "${DEMO_DIR}" "${RUNNER}" || die "rushbuild failed"
 
 [[ -f "${RUNNER}" ]] || die "runner not generated: ${RUNNER}"
 chmod +x "${RUNNER}" || true
