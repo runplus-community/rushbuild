@@ -1,6 +1,8 @@
 # rushbuild
 
-`rushbuild` packages source projects into self-contained shell runners.
+`rushbuild.sh` - Pack a Rust module into a single self-contained runnable `.sh`.
+
+`rushbuild` packages Rust source projects into source-preserving shell runners.
 
 The current implementation supports Rust crates.
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# rushbuild.sh — Pack a Rust crate into a single self-contained runnable .sh
+# rushbuild.sh - Pack a Rust module into a single self-contained runnable .sh
 # Usage: ./rushbuild.sh pack <src_dir> <out_runner.sh>
 # Supports: GitHub Actions Ubuntu (primary), macOS (secondary)
 # =============================================================================
