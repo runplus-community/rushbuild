@@ -1,7 +1,7 @@
-# dist-demo-app
+# dist-rust-demo
 
 Review surface for the packed Rust demo app.
-`demo-app/` stays source-only.
+`demo-apps/rust-demo/` stays source-only.
 
 ## Files
 
@@ -30,4 +30,4 @@ demo-app.run.sh
 - The `.run.sh.test.sh` file shows the acceptance path.
 - The `.run.corrupt.sh` file proves checksum rejection.
 - You can run the generated shell scripts directly with `bash`.
-- Trace artifacts live under `demo-app/conversions/` and `.con/` in the repo root.
+- Trace artifacts live under `demo-apps/rust-demo/conversions/` and `.con/` in the repo root.

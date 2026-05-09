@@ -92,7 +92,7 @@ _clear_dir_contents() {
 # ── 1. Identity & home ────────────────────────────────────────────────────
 MODULE_SAFE="demo-app"
 BINARY_NAME="demo-app"
-PAYLOAD_SHA256="9a220fc5a8c04455d9b3c73c0c42235f9a13b85528cdc888ea172716bba1453f"   # sha256 of the embedded tar.gz;
+PAYLOAD_SHA256="3338d1bfe925632efdd4a9f068d7876d5627227d09bf74f99b1c85602766929e"   # sha256 of the embedded tar.gz;
                                        # any source change → new hash → rebuild
 
 # MMM_HOME lets CI pin the cache to a persistent volume between runs.
@@ -194,16 +194,16 @@ exec "${BINARY}" "$@"
 
 # (Never reached — exec replaced this process)
 __PAYLOAD_B64__
-A4sIAAAAAAAAA+2Xz2+bMBTHc+av8OglSAuzCRAp/aFJPe20Q6ddomhy4ZF6BYOwqVq1+d/3gJKQ
-rGsXKUk1zZ8L4B/v2f762Y8YsnzEi+LT4HBQZBIEAxpSNgnbJ6WsKX9mwAI2mfheSP3JgLLxeMwG
-JDjgmFZUSvOSkMFlHsP9FZfxdX7/NUlSIeEY7t+buNPfjXi5yA+yDXbTP0T9/YAa/Y/Ctv5RLhOx
-cHWepXvzUQsc+v4O+odhHf90byN4BaN/q/9lLb+b5tHt3n28pb837unPxqh/4Hme0f8YnJBvN0KR
-RKRA8MkrjHyuRcTT9IF8XoCEkmuIyfUDaXeIdUK+6LqpzPEhNcgYq5O8JBmXFU8JxEILuXCtOyiV
-yCU5J75lzWYFj275AuZzS/IMsNTu9p7da2pTl7nUtt57Xf4XtuJ/r+d+x1vxz7xV/Ae+T5v4x2vA
-xP8RWIXlX0VlE9ttiUc9ZmNcx1DUR4CMBKi5ZeL2H2MV/6qMDvUPuEP+j/HP6vyfscDk/8dgQ/+M
-C+mWat8+3jj/GWZ9W/oHPjXn/1GoFBCl4+kU5N2ptfoqyjwCpU4tK5Gk3hZDhzxaBElBE0wV1JR8
-h+jsSpeY613ghYD9p9O6Yui46lYUQ+a4UZ6mEOmhg3bqviJpurpC/YCs0A9o9OmpKZrROTnHW2U0
-uoG0sLeL28J2ADUFetWp/DBc31bo4/faSuHVNn25jpCuL5mNRmWlbq4rkcYjDUqTMwUSs1hIL+Zk
-BvdC+x6+NIN33XnfYAm6KmX7vdyY5npOm8b7E8Gm9YJe5RkMO5cOrmbjaQEaV7HXenMCj12HZX88
-22Nqx9W9wbp7JpRC7UhnZXOVGvlxV+DUh57z2vTa1XlZnee6P1r2t0z3Jre0P7ar8DPH3WcT28Gm
-S5NfGAwGg8FgMBgMBoPBYDAYDDvwC23DYZsAKAAA
+A4sIAAAAAAAAA+2XS2+bQBDHfeZTTMkFpEJ5Gsl5qFJOPfWQqhfLqjAMzjawIHaJEiX+7h3A76R5
+SLajqvu7APuanf3v7A51I6SVYlF+GRwMh4jCcOAMHTca9k/HcbvyBQM3dKModIPIo3LXDwN/AOHh
+prSG/I9rgMFlmeLdVczTaXn3PctyxvEY5j+aeqW/ncT17CDb4P36B5EbKP2PwRP9k5JnbGbLssj3
+ZaMVeBgE79A/cqg5OPuawEso/Rf6X7by23mZ3Ozbxmv6e/5C/8CjGp/0p+M/UvofgxP4cc0EZCxH
+oGfcUODHkiVxnt/D1xlyrGOJKUzvod8g2gl8k21TXtKDS+QpVWdlDUXMmzgHTJlkfGZrt1gLVnI4
+h0DTxuMqTm7iGU4mGo8LpFK93XZWXFX6RlPdsV3b0bWPXpf/hd343+e5v+S1+He9VfyHQeB08T/0
+Vfwfg1VYvikqu9juSzzHc3WK6xSr9gjgCUMx0VTc/mOs41/UyYH+Ad+c/3fx3+X/vu+p/P8YbOtf
+xIzbtdizjVfOf5eyvh39w6Gnzv+j0AgEIdPRCPntqbb6quoyQSFONS3j0O4Kw4QHDYgcJVCmIEbw
+E5OzK1lTrndBFwL1H43aCsO0xQ2rDNe0kzLPMZGGSeO0fVnWdbWZ+IVFJe9p0MfHrmjsTOCcbhXL
+usa80neL+8J+Ai0VWZU5/2Ssbyuy8bS2EXS1jZ6vA1j2hbFlURxcTxuWp5ZEIeFMIKcsFvOLCYzx
+jsnAo5du8rY92RywRtnUvP+eb7m59ml78E1HqGm7oFdlgcbSpEmr2VmaoaRV3Gi97cDDssN8cz67
+c+rntXzDdfeCCUHawXKU7VXq5KddQa4bnvmSe/3qPK/Oou6vIwc7Q284N9c/96vwu6Tdp4NuUtO5
+yi8UCoVCoVAoFAqFQqFQKBSKd/AHGX0AQAAoAAA=

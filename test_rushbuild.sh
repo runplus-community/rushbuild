@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # test_rushbuild.sh
 # Higher-order bundle script for the rushbuild demo app.
-# It uses the parent packer from the repo root, keeps demo-app source-only,
+# It uses the parent packer from the repo root, keeps the Rust demo source-only,
 # and writes the generated runner plus acceptance test into
-# dist-demo-app/ for review.
+# dists/dist-rust-demo/ for review.
 #
 # Assumptions:
 # - You are inside the rushbuild repo root.
-# - demo-app/ contains the Rust crate to pack.
+# - demo-apps/rust-demo/ contains the Rust crate to pack.
 # - rushbuild.sh is available at the repo root, or on PATH as rushbuild.sh.
 #
 # Usage:
@@ -28,11 +28,11 @@ need base64
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="${SCRIPT_DIR}"
-DEMO_DIR="${REPO_ROOT}/demo-app"
-OUT_DIR="${REPO_ROOT}/dist-demo-app"
+DEMO_DIR="${REPO_ROOT}/demo-apps/rust-demo"
+OUT_DIR="${REPO_ROOT}/dists/dist-rust-demo"
 
-[[ -d "${DEMO_DIR}" ]] || die "demo-app not found under repo root"
-[[ -f "${DEMO_DIR}/Cargo.toml" ]] || die "Cargo.toml not found in demo-app"
+[[ -d "${DEMO_DIR}" ]] || die "demo-apps/rust-demo not found under repo root"
+[[ -f "${DEMO_DIR}/Cargo.toml" ]] || die "Cargo.toml not found in demo-apps/rust-demo"
 mkdir -p "${OUT_DIR}"
 
 # ------------------------------------------------------------
@@ -66,7 +66,7 @@ MODULE_NAME="$(awk '
     exit
   }
 ' "${DEMO_DIR}/Cargo.toml")"
-[[ -n "${MODULE_NAME}" ]] || die "could not parse package name in demo-app/Cargo.toml"
+[[ -n "${MODULE_NAME}" ]] || die "could not parse package name in demo-apps/rust-demo/Cargo.toml"
 MODULE_SAFE="$(echo "${MODULE_NAME}" | sed 's/[^A-Za-z0-9_-]/_/g')"
 
 RUNNER="${OUT_DIR}/${MODULE_SAFE}.run.sh"
