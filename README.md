@@ -35,6 +35,19 @@ Reviewable Workflow Handoffs is the spec direction from [`runplus-community/revi
 
 `rushbuild` implements the Rust execution handoff lane: it answers what source and build behavior are being handed to a developer shell or CI runner before execution.
 
+## Before / After
+
+Before:
+
+- build behavior can be scattered across README steps, CI config, local scripts, or binary-only handoffs
+- reviewers may not have one clear artifact to inspect before execution
+
+After:
+
+- the source-preserving runner is the handoff artifact
+- reviewers can inspect the runner, payload hash, Cargo build path, and generated test before running it
+- first run verifies, extracts, builds, and executes; later runs can use the warm cache
+
 Root-level entry points:
 
 - `rushbuild.sh` for shell environments
