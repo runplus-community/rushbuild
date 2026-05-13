@@ -1,6 +1,18 @@
 # rushbuild
 
-`rushbuild.sh` - Pack source projects into single self-contained runnable `.sh` files.
+Reviewable Rust execution handoffs.
+
+`rushbuild` makes Rust build behavior visible, version-controlled, and reviewable before it runs locally or in CI.
+
+> Do not execute what you cannot review.
+
+`rushbuild` is a reference implementation of `RUSHB-001` from [`runplus-community/reviewable-workflows`](https://github.com/runplus-community/reviewable-workflows/blob/dev/specs/execution-handoffs/rushbuild.md).
+
+## Why This Exists
+
+Build and release helpers are often hidden in README instructions, CI config, local scripts, or binary-only handoffs.
+
+`rushbuild.sh` packs Rust crates into single self-contained runnable `.sh` files.
 
 `rushbuild` packages source projects into source-preserving shell runners.
 
@@ -17,11 +29,33 @@ multiple project types such as Rust, Go, Python, and other automation stacks.
 Use `goshbuild` for the current Go-focused implementation and `rushbuild` for
 the current Rust-focused implementation.
 
+## How It Connects To Reviewable Workflow Handoffs
+
+Reviewable Workflow Handoffs is the spec direction from [`runplus-community/reviewable-workflows`](https://github.com/runplus-community/reviewable-workflows).
+
+`rushbuild` implements the Rust execution handoff lane: it answers what source and build behavior are being handed to a developer shell or CI runner before execution.
+
 Root-level entry points:
 
 - `rushbuild.sh` for shell environments
 - `rushbuild.ps1` as the PowerShell wrapper for Windows
 - `test_rushbuild.sh` as the higher-order demo harness
+
+## Install / Build
+
+No package install is required for the current shell implementation.
+
+Run the packer from this repo:
+
+```bash
+bash ./rushbuild.sh pack ./demo-apps/rust-demo ./dists/dist-rust-demo/demo-app.run.sh
+```
+
+On Windows, use the PowerShell wrapper:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\rushbuild.ps1 pack .\demo-apps\rust-demo .\dists\dist-rust-demo\demo-app.run.sh
+```
 
 ## Quick Start
 
@@ -186,6 +220,33 @@ For the current Rust implementation:
 - `base64`
 - `bash` for the generated runner
 
+## Reviewability Model
+
+Before trusting a `rushbuild` handoff, review:
+
+- the source crate being packed
+- the generated `.run.sh` runner
+- the payload checksum
+- the embedded payload marker and generated test script
+- the `cargo build --release --locked` path inside the runner
+- the cache key inputs: package identity, Rust host, rustc version, and payload hash
+
+The runner verifies the payload before extraction, builds with Cargo, caches the binary, and then `exec`s the result with the original arguments.
+
+## Security Notes
+
+`rushbuild` does not guarantee safe execution and does not replace dependency scanning, signing, SLSA, OpenSSF Scorecard, SBOMs, CI hardening, sandboxing, or code review.
+
+It focuses on making the Rust execution handoff visible and reviewable before it runs.
+
+## Non-Goals
+
+- replacing Cargo
+- replacing CI security
+- proving that embedded source is safe
+- proving that generated runners are safe to execute without review
+- replacing normal code review
+
 ## Language Scope
 
 - Current support: Rust crates through Cargo.
@@ -196,6 +257,10 @@ For the current Rust implementation:
 
 - [CHANGELOG.md](CHANGELOG.md)
 - [RELEASE.md](RELEASE.md)
+
+## Contributing
+
+Contributions should improve clarity, inspectability, reproducibility, accurate docs, and tests. Avoid adding hidden execution behavior.
 
 ## License
 
