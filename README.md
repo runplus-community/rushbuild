@@ -35,6 +35,10 @@ Reviewable Workflow Handoffs is the spec direction from [`runplus-community/revi
 
 `rushbuild` implements the Rust execution handoff lane: it answers what source and build behavior are being handed to a developer shell or CI runner before execution.
 
+## Visual Model
+
+![rushbuild Reviewable Rust Execution Handoff](docs/assets/rushbuild-execution-handoff.png)
+
 ## Before / After
 
 Before:
