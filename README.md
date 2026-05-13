@@ -14,20 +14,19 @@ Build and release helpers are often hidden in README instructions, CI config, lo
 
 `rushbuild.sh` packs Rust crates into single self-contained runnable `.sh` files.
 
-`rushbuild` packages source projects into source-preserving shell runners.
+`rushbuild` packages Rust source projects into source-preserving shell runners.
 
-The current implementation supports Rust crates first, with room for future
-lanes such as Go, Python, and other automation stacks.
+The current implementation is intentionally Rust-focused.
 
 The bundle preserves the crate source and build inputs, then emits a single
 `sh` entry point that extracts, verifies, builds, and executes the Rust program
 at runtime.
 
-`rushbuild` starts as the Rust mirror of [`goshbuild`](https://github.com/runplus-community/goshbuild).
-The broader direction is to carry the same source-preserving bundle model across
-multiple project types such as Rust, Go, Python, and other automation stacks.
-Use `goshbuild` for the current Go-focused implementation and `rushbuild` for
-the current Rust-focused implementation.
+`rushbuild` is the Rust mirror of [`goshbuild`](https://github.com/runplus-community/goshbuild).
+The broader cross-language direction belongs in
+[`reviewable-workflows`](https://github.com/runplus-community/reviewable-workflows).
+Use `goshbuild` for Go execution handoffs and `rushbuild` for Rust execution
+handoffs.
 
 ## How It Connects To Reviewable Workflow Handoffs
 
@@ -156,12 +155,12 @@ fresh binary in the target environment.
 The source project can remain split across many files, modules, and Cargo
 metadata, while the delivered artifact stays one runnable file.
 
-### 5. Multi-language automation bundle
+### 5. Rust execution handoff
 
-The same runner pattern can apply beyond Rust: Go tools, Python utilities, and
-other automation projects can preserve their source tree while still delivering
-one runnable file. Rust support is implemented first; additional language lanes
-can follow the same verify, extract, build, and exec contract.
+The runner preserves the Rust source tree and Cargo metadata while still
+delivering one runnable file. Cross-language handoff specs belong in
+[`reviewable-workflows`](https://github.com/runplus-community/reviewable-workflows);
+this repo stays focused on Rust.
 
 ## Demo app
 
@@ -190,8 +189,6 @@ dists/
 |   |-- demo-app.run.sh
 |   |-- demo-app.run.sh.test.sh
 |   `-- demo-app.run.corrupt.sh
-`-- dist-golang-demo/
-    `-- README.md
 ```
 
 You can run these scripts directly with `bash`.
@@ -206,13 +203,10 @@ demo-apps/
 |   |-- Cargo.toml
 |   |-- Cargo.lock
 |   `-- src/main.rs
-`-- golang-demo/
-    `-- README.md
 ```
 
-The Go demo lane is reserved for future work. Community feedback should guide
-whether `rushbuild` grows direct Go support or continues to reference
-[`goshbuild`](https://github.com/runplus-community/goshbuild) for Go projects.
+Use [`goshbuild`](https://github.com/runplus-community/goshbuild) for Go
+execution handoff demos.
 
 ## Validation
 
@@ -268,7 +262,7 @@ It focuses on making the Rust execution handoff visible and reviewable before it
 
 - Current support: Rust crates through Cargo.
 - Go reference implementation: [`goshbuild`](https://github.com/runplus-community/goshbuild).
-- Intended expansion: Go, Python, and other project types that can be restored from source and run from one generated entry point.
+- Cross-language spec direction: [`reviewable-workflows`](https://github.com/runplus-community/reviewable-workflows).
 
 ## Release Notes
 
